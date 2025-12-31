@@ -2,7 +2,7 @@
 
 ## 📊 Stats
 
-- ✅ **Total Problems Solved:** **0**
-- 🔥 **Solved Today:** **0**
+- ✅ **Total Problems Solved: **7**
+- 🔥 **Solved Today: **1**
 
 _Last updated automatically by GitHub Actions_
