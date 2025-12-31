@@ -1,0 +1,35 @@
+name: Update DSA Stats Automatically
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  update-readme:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Calculate DSA stats
+        run: |
+          echo "Calculating total solved problems..."
+          TOTAL=$(find . -maxdepth 1 -type d -name "*-*" | wc -l)
+
+          echo "Calculating today's solved problems..."
+          TODAY=$(git log --since=midnight --oneline | wc -l)
+
+          echo "Updating README.md..."
+          sed -i "s/Total Problems Solved:.*/Total Problems Solved: **$TOTAL**/" README.md
+          sed -i "s/Solved Today:.*/Solved Today: **$TODAY**/" README.md
+
+      - name: Commit and push changes
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+
+          git add README.md
+          git commit -m "Auto-update DSA stats" || echo "No changes to commit"
+          git push
