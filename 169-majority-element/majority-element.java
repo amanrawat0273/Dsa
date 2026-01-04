@@ -1,21 +1,20 @@
 class Solution {
     public int majorityElement(int[] nums) {
-        Map<Integer,Integer> freq=new HashMap<>();
-
-       int n=nums.length/2;
-    
-        for (int c : nums) {
-            freq.put(c, freq.getOrDefault(c, 0) + 1);
-        }
-
-        for (int i = 0; i < nums.length; i++) {
-            if (freq.get(nums[i]) >n) {
-                return nums[i];
+        int count = 0;
+        int candidate = 0;
+        
+        for (int num : nums) {
+            if (count == 0) {
+                candidate = num;
+            }
+            
+            if (num == candidate) {
+                count++;
+            } else {
+                count--;
             }
         }
-
-        return -1;        
-   
-
+        
+        return candidate;
     }
 }
